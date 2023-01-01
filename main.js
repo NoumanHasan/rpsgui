@@ -4,19 +4,20 @@ let computerScore=0;
 let playerSelection;
 let computerSelection;
 
-const b1 = document.querySelector('#b1');
-const b2 = document.querySelector('#b2');
-const b3 = document.querySelector('#b3');
-const ps = document.querySelector('.selection-player');
-const cs = document.querySelector('.selection-computer');
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+const showPlayerSelection = document.querySelector('.selection-player');
+const showComputerSelection = document.querySelector('.selection-computer');
 const showResult = document.querySelector('.para');
-const plScore = document.querySelector('.player-score');
-const compScore = document.querySelector('.computer-score');
+const showPlayerScore = document.querySelector('.player-score');
+const showComputerScore = document.querySelector('.computer-score');
 
 //getUserChoice();
 //getComputerChoice();
 //playRound(getUserChoice,getUserChoice);
-game ();
+//game ();
+
 function play () {
   let userChoice;
   b1.addEventListener('click', () => {
@@ -50,20 +51,19 @@ function play () {
 //function to get computer choice
 function getComputerChoice () {
     let computerChoice;
-    let rand = Math.floor(Math.random() * 3+1);
+    let rand = Math.floor(Math.random() * 3);
     switch (rand) {
+        case 0:
+            computerChoice = 'Rock';
+            break;
         case 1:
-            computerChoice = ['Rock','✊🏻'];
+            computerChoice = 'Paper';
             break;
         case 2:
-            computerChoice = ['Paper','✋🏻'];
-            break;
-        case 3:
-            computerChoice = ['Scissors','✌🏻'];
+            computerChoice = 'Scissors';
             break;
     }
-    cs.textContent = computerChoice[1];
-    computerSelection = computerChoice[0];
+    return computerChoice;
 }
 
 
@@ -77,32 +77,32 @@ function playRound(x,y) {
     }
         else if (x==='Rock'&& y==='Paper') {
         result = 'You Loose! Paper beats Rock';
-        computerScore += 1;
+        computerScore++;
     }
         else if (x==='Rock'&& y==='Scissors') {
         result = 'You Win! Rock beats Scissors';
-        playerScore += 1;
+        playerScore++;
     }
     //user paper case
         else if (x==='Paper'&& y==='Rock') {
         result = 'You Win! Paper beats Rock';
-        playerScore += 1;
+        playerScore++;
     }
         else if (x==='Paper'&& y==='Paper') {
         result = 'Its a tie!';
     }
         else if (x==='Paper'&& y==='Scissors') {
         result = 'You Loose! Scissors beats Paper';
-        computerScore += 1;
+        computerScore++;
     }
     //user scissors case
         else if (x==='Scissors'&& y==='Rock') {
         result = 'You Loose! Rock beats Scissors';
-        computerScore += 1;
+        computerScore++;
     }
         else if (x==='Scissors'&& y==='Paper') {
         result = 'You Win! Scissors beats Paper';
-        playerScore += 1;
+        playerScore++;
     }
         else if (x==='Scissors'&& y==='Scissors') {
         result = 'Its a tie!';
@@ -112,7 +112,7 @@ function playRound(x,y) {
         // default case 
             result = 'Choose your weapon';
     }
-    showResult.textContent = result;
+    return result;
 }
 
 function game(){
