@@ -3,7 +3,7 @@ let playerScore=0;
 let computerScore=0;
 let playerSelection;
 let computerSelection;
-let myresult;
+let roundResult;
 
 const rock = document.querySelector('#rock');
 const paper = document.querySelector('#paper');
@@ -12,21 +12,25 @@ const showPlayerSelection = document.querySelector('.selection-player');
 const showComputerSelection = document.querySelector('.selection-computer');
 const showPlayerScore = document.querySelector('.player-score');
 const showComputerScore = document.querySelector('.computer-score');
-const showResult = document.querySelector('.para');
-//getUserChoice();
-//getComputerChoice();
-//playRound(getUserChoice,getUserChoice);
-//game ();
-rock.addEventListener('click', playGame('Rock'));
-paper.addEventListener('click', playGame('Paper'));
-scissors.addEventListener('click', playGame('Scissors'));
-//showPlayerScore.textContent = playerScore;
-function playGame (input) {
+const showRoundResult = document.querySelector('.para');
+
+showPlayerScore.textContent = playerScore;
+showComputerScore.textContent = computerScore;
+
+rock.addEventListener('click', () => {playGame('Rock')});
+paper.addEventListener('click', () => {playGame('Paper');});
+scissors.addEventListener('click', () => { playGame('Scissors'); });
+
+function playGame(input) {
     let userChoice = input;
     playerSelection = userChoice;
     computerSelection = getComputerChoice();
-    playRound(input,computerSelection);
-    //console.log(result);
+    showSeletion(playerSelection, computerSelection);
+    playRound(playerSelection, computerSelection);
+    showResult(playerScore, computerScore, roundResult);
+    if (playerScore === 5 || computerScore === 5) {
+        gameOver();
+    }
 }
 
 //function to get computer choice
@@ -44,7 +48,7 @@ function getComputerChoice () {
             computerChoice = 'Scissors';
             break;
     }
-    computerSelection = computerChoice;
+    return computerChoice;
 }
 
 
@@ -90,12 +94,57 @@ function playRound(x,y) {
         // default case 
             result = 'Choose your weapon';
              }
-    showResult.textContent = result;
-    //myresult = result;
+    roundResult = result;
 }
 
-function game(){
-  play();
-  plScore.textContent = playerScore;
-  compScore.textContent = computerScore;
+function showSeletion (x,y) {
+    switch (x) {
+        case 'Rock':
+            showPlayerSelection.textContent = '✊🏻';
+            break;
+        case 'Paper':
+            showPlayerSelection.textContent = '✋🏻';
+            break;
+        case 'Scissors':
+            showPlayerSelection.textContent = '✌🏻';
+            break;
+        default:
+            showPlayerSelection.textContent = '';
+            break;
+    }
+    switch (y) {
+        case 'Rock':
+            showComputerSelection.textContent = '✊🏻';
+            break;
+        case 'Paper':
+            showComputerSelection.textContent = '✋🏻';
+            break;
+        case 'Scissors':
+            showComputerSelection.textContent = '✌🏻';
+            break;
+        default:
+            showComputerSelection.textContent = '';
+            break;
+    }
+}
+
+function showResult (x,y,z) {
+    showPlayerScore.textContent = x;
+    showComputerScore.textContent = y;
+    showRoundResult.textContent = z;
+}
+
+function gameOver(x, y, z) {
+    if (playerScore === 5) {
+        alert('Congratulations, YOU WON!')
+    } else if (computerScore === 5) {
+        alert('Oops, You lose the game!')
+    }
+    playerScore = 0;
+    computerScore = 0;
+    playerSelection = '';
+    computerSelection = '';
+    roundResult = 'Choose your weapon';
+    showSeletion(playerSelection,computerSelection);
+    showResult(playerScore,computerScore,roundResult);
 }
