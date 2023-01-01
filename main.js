@@ -3,51 +3,32 @@ let playerScore=0;
 let computerScore=0;
 let playerSelection;
 let computerSelection;
+let myresult;
 
 const rock = document.querySelector('#rock');
 const paper = document.querySelector('#paper');
 const scissors = document.querySelector('#scissors');
 const showPlayerSelection = document.querySelector('.selection-player');
 const showComputerSelection = document.querySelector('.selection-computer');
-const showResult = document.querySelector('.para');
 const showPlayerScore = document.querySelector('.player-score');
 const showComputerScore = document.querySelector('.computer-score');
-
+const showResult = document.querySelector('.para');
 //getUserChoice();
 //getComputerChoice();
 //playRound(getUserChoice,getUserChoice);
 //game ();
-
-function play () {
-  let userChoice;
-  b1.addEventListener('click', () => {
-    userChoice = ['Rock', '✊🏻'];
-    ps.textContent = userChoice[1];
-    playerSelection = userChoice[0];
-    getComputerChoice();
-    playRound(playerSelection,computerSelection);
-    plScore.textContent = playerScore;
-    compScore.textContent = computerScore;
-  });
-  b2.addEventListener('click', () => {
-    userChoice = ['Paper', '✋🏻'];
-    ps.textContent = userChoice[1];
-    playerSelection = userChoice[0];
-    getComputerChoice();
-    playRound(playerSelection, computerSelection);
-    plScore.textContent = playerScore;
-    compScore.textContent = computerScore;
-  });
-  b3.addEventListener('click', () => {
-    userChoice = ['Scissors', '✌🏻'];
-    ps.textContent = userChoice[1];
-    playerSelection = userChoice[0];
-    getComputerChoice();
-    playRound(playerSelection, computerSelection);
-    plScore.textContent = playerScore;
-    compScore.textContent = computerScore;
-  });
+rock.addEventListener('click', playGame('Rock'));
+paper.addEventListener('click', playGame('Paper'));
+scissors.addEventListener('click', playGame('Scissors'));
+//showPlayerScore.textContent = playerScore;
+function playGame (input) {
+    let userChoice = input;
+    playerSelection = userChoice;
+    computerSelection = getComputerChoice();
+    playRound(input,computerSelection);
+    //console.log(result);
 }
+
 //function to get computer choice
 function getComputerChoice () {
     let computerChoice;
@@ -63,14 +44,12 @@ function getComputerChoice () {
             computerChoice = 'Scissors';
             break;
     }
-    return computerChoice;
+    computerSelection = computerChoice;
 }
 
 
 function playRound(x,y) {
-    let result;
-    if (x === 'Rock' || x === 'Paper' || x === 'Scissors') {
-    
+    let result; 
     //user rock case
              if (x==='Rock'&& y==='Rock') {
         result = 'Its a tie!';
@@ -107,12 +86,12 @@ function playRound(x,y) {
         else if (x==='Scissors'&& y==='Scissors') {
         result = 'Its a tie!';
     }
-    
-    } else {
+        else {
         // default case 
             result = 'Choose your weapon';
-    }
-    return result;
+             }
+    showResult.textContent = result;
+    //myresult = result;
 }
 
 function game(){
